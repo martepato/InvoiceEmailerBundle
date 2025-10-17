@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages.de.xliff">
+        <body>
+            <trans-unit id="invoice_additional_email">
+                <source>invoice_additional_email</source>
+                <target>Zusätzliche Rechnungs-E-Mail</target>
+            </trans-unit>
+            <trans-unit id="invoice_additional_email.help">
+                <source>invoice_additional_email.help</source>
+                <target>Ein zusätzlicher Empfänger für Rechnungs-E-Mails (optional)</target>
+            </trans-unit>
+            <trans-unit id="invoice_additional_email.validation">
+                <source>invoice_additional_email.validation</source>
+                <target>Bitte geben Sie eine gültige E-Mail-Adresse ein.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

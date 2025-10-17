@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xliff">
+        <body>
+            <trans-unit id="invoice_additional_email">
+                <source>invoice_additional_email</source>
+                <target>Additional Invoice Email</target>
+            </trans-unit>
+            <trans-unit id="invoice_additional_email.help">
+                <source>invoice_additional_email.help</source>
+                <target>An additional recipient for invoice emails (optional)</target>
+            </trans-unit>
+            <trans-unit id="invoice_additional_email.validation">
+                <source>invoice_additional_email.validation</source>
+                <target>Please enter a valid email address.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
