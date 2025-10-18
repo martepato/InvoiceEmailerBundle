@@ -9,6 +9,7 @@ use App\Entity\InvoiceMeta;
 use App\Event\EmailEvent;
 use App\Invoice\ServiceInvoice;
 use App\Repository\InvoiceRepository;
+use KimaiPlugin\InvoiceEmailerBundle\EventSubscriber\CustomerAdditionalEmailSubscriber;
 use KimaiPlugin\InvoiceEmailerBundle\EventSubscriber\EmailSentFieldSubscriber;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -161,6 +162,10 @@ class InvoiceEmailService
                 throw new \Exception('Customer has no email address');
             }
 
+            // Get additional email address from customer meta
+            $additionalEmailMeta = $customer->getMetaField(CustomerAdditionalEmailSubscriber::META_FIELD_NAME);
+            $additionalEmail = $additionalEmailMeta ? $additionalEmailMeta->getValue() : null;
+
             $invoiceFile = $this->serviceInvoice->getInvoiceFile($invoice);
             if ($invoiceFile === null) {
                 throw new \Exception('Invoice file not found');
@@ -172,7 +177,18 @@ class InvoiceEmailService
 
             $message = (new TemplatedEmail())
                 ->from(new Address($companyEmail, $companyName))
-                ->to($email)
+                ->to($email);
+
+            // Add additional email address if present and valid
+            if (!empty($additionalEmail) && filter_var($additionalEmail, FILTER_VALIDATE_EMAIL)) {
+                $message->addTo($additionalEmail);
+                $this->logger->debug('Added additional recipient', [
+                    'invoice_id' => $invoice->getId(),
+                    'additional_email' => $additionalEmail,
+                ]);
+            }
+
+            $message
                 ->subject($this->translator->trans('invoice.emailer.subject', [
                     '{company}' => $companyName,
                     '{number}' => $invoice->getInvoiceNumber(),
